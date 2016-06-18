@@ -26,7 +26,7 @@ class MessageBusImpl implements MessageBus {
 	}
 
 	@override
-	void subscribe(Type type, EventHandler handler, {whereFunc}) {
+	void subscribe(Type type, EventHandler handler, {whereFunc, enrichFunc}) {
 		if (!_channels.containsKey(type)) {
 			_channels[type] = [];
 		}
@@ -36,6 +36,10 @@ class MessageBusImpl implements MessageBus {
 
 		if (whereFunc != null) {
 			deliverer.where = whereFunc;
+		}
+
+		if (enrichFunc != null) {
+			deliverer.enrich = enrichFunc;
 		}
 
 		_channels[type].add(deliverer);
@@ -80,12 +84,14 @@ class MessageBusImpl implements MessageBus {
 class Deliverer<T> {
 	EventHandler<T> eventHandler;
 	whereFunc where = (dynamic event) => true;
+	enrichFunc enrich = (){};
 
 	bool deliver(event) {
 		if (!where(event)) {
 			return false;
 		}
 
+		enrich();
 		eventHandler.handleEvent(event);
 
 		return true;
