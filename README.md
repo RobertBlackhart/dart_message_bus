@@ -1,12 +1,12 @@
-# messageBus
+# message_bus
 
-A simple message_bus library
+A simple message_bus library for Dart
 
 ## Usage
 
 A simple usage example:
 
-    import 'package:messageBus/messageBus.dart';
+    import 'package:message_bus/message_bus.dart';
     
     MessageBus mBus = new MessageBus();
     
@@ -27,4 +27,4 @@ A simple usage example:
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/RobertMcDermot/dart_message_bus/issues
